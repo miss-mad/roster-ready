@@ -3,6 +3,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 
+
 // in this case, information from another js file is imported so that we can use it in this one
 const generateHTML = require("./src/generateHTML");
 
@@ -68,24 +69,25 @@ function questions() {
         type: "input",
         message: "What is the engineer's name?",
         name: "engineerName",
-        when: (answer) => answer.employeeTypeNext === "Engineer",
+        // when: (answer) => answer.employeeTypeNext === "Engineer",
       },
       {
         type: "number",
         message: "What is the engineer's employee ID?",
         name: "engineerId",
-        when: (answer) => answer.employeeTypeNext === "Engineer",
+        // when: (answer) => answer.employeeTypeNext === "Engineer",
       },
       {
         type: "input",
         message: "What is the engineer's email?",
         name: "engineerEmail",
-        when: (answer) => answer.employeeTypeNext === "Engineer",
+        // when: (answer) => answer.employeeTypeNext === "Engineer",
       },
       {
         type: "input",
         message: "What is the engineer's Github username?",
         name: "engineerGithub",
+        // when: (answer) => answer.employeeTypeNext === "Engineer",
         // (opens in new tab)
       },
       // ------------------------------------------------------------- END ENGINEER
@@ -95,7 +97,7 @@ function questions() {
         message:
           "Which type of employee would you like to add to the roster next?",
         choices: ["Engineer", "Intern", "None"],
-        name: "employeeTypeNext",
+        name: "employeeTypeNext2",
       },
       // ------------------------------------------------------------- INTERN
       // intern:
@@ -107,25 +109,25 @@ function questions() {
         type: "input",
         message: "What is the intern's name?",
         name: "internName",
-        when: (answer) => answer.employeeTypeNext === "Intern",
+        // when: (answer) => answer.employeeTypeNext === "Intern",
       },
       {
         type: "number",
         message: "What is the intern's employee ID?",
         name: "internId",
-        when: (answer) => answer.employeeTypeNext === "Intern",
+        // when: (answer) => answer.employeeTypeNext === "Intern",
       },
       {
         type: "input",
         message: "What is the intern's email?",
         name: "internEmail",
-        when: (answer) => answer.employeeTypeNext === "Intern",
+        // when: (answer) => answer.employeeTypeNext === "Intern",
       },
       {
         type: "input",
         message: "Where does the intern go to school?",
         name: "internSchool",
-        when: (answer) => answer.employeeTypeNext === "Intern",
+        // when: (answer) => answer.employeeTypeNext === "Intern",
       },
       // ------------------------------------------------------------- END INTERN
       // take back to the menu options to add another employee
@@ -150,15 +152,17 @@ function questions() {
           "Which type of employee would you like to add to the roster next?",
         choices: ["Engineer", "Intern", "None"],
         name: "employeeTypeNext",
-        when: (answer) => answer.employeeTypeNone === false,
+        // when: (answer) => answer.employeeTypeNone === false,
       },
     ])
 
     // the .prompt returns answers and .then catches those answers
     .then((answers) => {
       console.log(answers);
+
       // then calls the writeToFile() function to write answers into a newly created README.md file
-      writeToFile();
+
+      writeToFile(answers);
     })
 
     // if there are any errors, the function should log the error to the console; otherwise, shout, "success!"
@@ -174,15 +178,18 @@ function questions() {
     });
 }
 
-function writeToFile(answers) {
+const writeToFile = (answers) => {
+  console.log(answers);
+
+
   // "fs" stands for "file-system" and is something built into node.js to allow us to read and write files. in this case, we're writing (creating) a new README.md file and then calling the generateMarkdown() function to populate the file with the format and information we want.
-  fs.writeFile("index.html", generateHTML(answers), (err) => {
-    err ? console.log(err) : console.log("index.html successfully created!");
-  });
-}
+  fs.writeFile(
+    "./dist/index.html",
+    generateHTML(answers),
+    (err) => {
+      err ? console.log(err) : console.log("index.html successfully created!");
+    }
+  );
+};
 
-function init() {
-  questions();
-}
-
-init();
+questions();
