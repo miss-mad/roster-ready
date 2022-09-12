@@ -18,5 +18,8 @@
   "homepage": "https://github.com/miss-mad/roster-ready#readme",
   "devDependencies": {
     "jest": "^29.0.3"
+  },
+  "dependencies": {
+    "inquirer": "^8.2.4"
   }
 }
