@@ -1,5 +1,22 @@
-const employee = require('../lib/employee');
+const Employee = require("../lib/employee");
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
+describe("testEmployee", () => {
+  // tests the values in the constructor function within the employee class
+  it("should test that the user input builds an employee", () => {
+    // define test cases
+    const name = "Bianca";
+    const id = 2995;
+    const email = "b@mosht.com";
+
+    const employee = new Employee(name, id, email);
+
+    // define answer to the test cases
+    const employeeName = employee.name;
+    const employeeId = employee.id;
+    const employeeEmail = employee.email;
+
+    expect(employeeName).toEqual(name);
+    expect(employeeId).toEqual(id);
+    expect(employeeEmail).toEqual(email);
+  });
 });
