@@ -15,67 +15,77 @@ function questions() {
         type: "list",
         message:
           "Which type of employee would you like to add to the roster first?",
-        choices: ["Manager", "Engineer", "Employee"],
+        choices: ["Manager", "Engineer", "Intern"],
         name: "employeeTypeFirst",
-        validate: function (employeeTypeFirst) {
-          if (employeeTypeFirst == null) {
-            return console.log(
-              "Please choose an employee type to add the first employee."
-            );
-          }
-        },
+        // validate: function (employeeTypeFirst) {
+        //   if (employeeTypeFirst == null) {
+        //     return console.log(
+        //       "Please choose an employee type to add the first employee."
+        //     );
+        //   }
+        // },
       },
       // manager:
       // name
       // employee ID
       // email (interactive)
       // office #
+      //   {
+      //     when: (answer) => answer.employeeType === "Manager",
+      //     function () {
+      //         inquirer
+      //         .prompt([])
+      //     }
+      //   },
       {
-        when: (answer) => answer.employeeType === "Manager",
-        function() {
-          inquirer.prompt([
-            {
-              type: "input",
-              message: "What is the manager's name?",
-              name: "managerName",
-            //   when: (answer) => answer.employeeType === "Manager",
-            },
-            {
-              type: "number",
-              message:
-                "What is the manager's employee ID? Please enter digits only",
-              name: "managerId",
-            //   when: (answer) => answer.employeeType === "Manager",
-            },
-            {
-              type: "input",
-              message: "What is the manager's email?",
-              name: "managerEmail",
-            //   when: (answer) => answer.employeeType === "Manager",
-            },
-            {
-              type: "number",
-              message:
-                "What is the manager's office number? Please enter digits only",
-              name: "managerOfficeNumber",
-            //   when: (answer) => answer.employeeType === "Manager",
-            },
-          ]);
-        },
+        type: "input",
+        message: "What is the manager's name?",
+        name: "managerName",
+        when: (answer) => answer.employeeTypeFirst === "Manager",
       },
-
+      {
+        type: "number",
+        message: "What is the manager's employee ID? Please enter digits only",
+        name: "managerId",
+        when: (answer) => answer.employeeTypeFirst === "Manager",
+      },
+      {
+        type: "input",
+        message: "What is the manager's email?",
+        name: "managerEmail",
+        when: (answer) => answer.employeeTypeFirst === "Manager",
+      },
+      {
+        type: "number",
+        message:
+          "What is the manager's office number? Please enter digits only",
+        name: "managerOfficeNumber",
+        when: (answer) => answer.employeeTypeFirst === "Manager",
+      },
       // menu option to add an engineer or an intern or finish
       {
         type: "list",
         message:
           "Which type of employee would you like to add to the roster next?",
-        choices: ["Manager", "Engineer", "Employee", "None"],
+        choices: ["Manager", "Engineer", "Intern", "None"],
         name: "employeeTypeNext",
-        validate: function (employeeTypeNext) {
-          if (employeeTypeNext === "None") {
-            return "Please choose an employee type to add the next employee.";
-          }
-        },
+        // validate: function (employeeTypeNext) {
+        //   if (employeeTypeNext == "None") {
+        //     return "Please choose an employee type to add the next employee.";
+        //   }
+        // },
+      },
+      {
+        type: "confirm",
+        message:
+          "Are you finished listing your team?",
+        name: "employeeTypeNone",
+        when: (answer) => answer.employeeTypeNext === "None",
+      },
+      {
+        employeeTypeNext,
+        name: "employeeTypeNext",
+        when: (answer) => answer.employeeTypeNone === false,
       },
       // engineer:
       // name
