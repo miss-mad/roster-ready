@@ -9,27 +9,102 @@ const generateHTML = require("./src/generateHTML");
 function questions() {
   inquirer
     // the following are the list of questions for the user
-    .prompt([{
-        // questions:
-            // team manager:
-                // name
-                // employee ID
-                // email address (interactive)
-                // office #
-            // menu option to add an engineer or an intern or finish
-            // engineer:
-                // name
-                // employee ID
-                // email address (interactive)
-                // github username (opens in new tab)
-                // take back to the menu options to add another employee
-            // intern:
-                // name
-                // employee ID
-                // email address (interactive)
-                // school
-                // take back to the menu options to add another employee
-            // finish creating team
-                // exit app and create HTML
-    }]);
+    .prompt([
+      // questions:
+      {
+        type: "list",
+        message:
+          "Which type of employee would you like to add to the roster first?",
+        choices: ["Manager", "Engineer", "Employee"],
+        name: "employeeTypeFirst",
+        validate: function (employeeTypeFirst) {
+          if (employeeTypeFirst == null) {
+            return console.log(
+              "Please choose an employee type to add the first employee."
+            );
+          }
+        },
+      },
+      // manager:
+      // name
+      // employee ID
+      // email (interactive)
+      // office #
+      {
+        when: (answer) => answer.employeeType === "Manager",
+        function() {
+          inquirer.prompt([
+            {
+              type: "input",
+              message: "What is the manager's name?",
+              name: "managerName",
+            //   when: (answer) => answer.employeeType === "Manager",
+            },
+            {
+              type: "number",
+              message:
+                "What is the manager's employee ID? Please enter digits only",
+              name: "managerId",
+            //   when: (answer) => answer.employeeType === "Manager",
+            },
+            {
+              type: "input",
+              message: "What is the manager's email?",
+              name: "managerEmail",
+            //   when: (answer) => answer.employeeType === "Manager",
+            },
+            {
+              type: "number",
+              message:
+                "What is the manager's office number? Please enter digits only",
+              name: "managerOfficeNumber",
+            //   when: (answer) => answer.employeeType === "Manager",
+            },
+          ]);
+        },
+      },
+
+      // menu option to add an engineer or an intern or finish
+      {
+        type: "list",
+        message:
+          "Which type of employee would you like to add to the roster next?",
+        choices: ["Manager", "Engineer", "Employee", "None"],
+        name: "employeeTypeNext",
+        validate: function (employeeTypeNext) {
+          if (employeeTypeNext === "None") {
+            return "Please choose an employee type to add the next employee.";
+          }
+        },
+      },
+      // engineer:
+      // name
+      // employee ID
+      // email (interactive)
+      // github username (opens in new tab)
+      // take back to the menu options to add another employee
+      {
+        type: "input",
+        message: "?",
+        name: "",
+      },
+      // intern:
+      // name
+      // employee ID
+      // email (interactive)
+      // school
+      // take back to the menu options to add another employee
+      {
+        type: "input",
+        message: "?",
+        name: "",
+      },
+      {
+        type: "input",
+        message: "?",
+        name: "",
+      },
+      // finish creating team
+      // exit app and create HTML
+    ]);
 }
