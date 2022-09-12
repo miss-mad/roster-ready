@@ -25,7 +25,8 @@ Video link:
 
 ## Future Improvements
 
- * 
+ * Inquirer .prompt questions cleaner and DRYer
+ * Ability to add more than one of each employee type (ask each time if we want to add another manager, engineer, intern, or none)
 
 ## Installation
 

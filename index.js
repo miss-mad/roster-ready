@@ -8,66 +8,49 @@ const generateHTML = require("./src/generateHTML");
 
 function questions() {
   inquirer
-    // the following are the list of questions for the user
+    // questions for the user
     .prompt([
-      // questions:
-      {
-        type: "list",
-        message:
-          "Which type of employee would you like to add to the roster first?",
-        choices: ["Manager", "Engineer", "Intern"],
-        name: "employeeTypeFirst",
-        // validate: function (employeeTypeFirst) {
-        //   if (employeeTypeFirst == null) {
-        //     return console.log(
-        //       "Please choose an employee type to add the first employee."
-        //     );
-        //   }
-        // },
-      },
+      // ---------------------------------------------------- MANAGER
       // manager:
       // name
       // employee ID
       // email (interactive)
       // office #
-      //   {
-      //     when: (answer) => answer.employeeType === "Manager",
-      //     function () {
-      //         inquirer
-      //         .prompt([])
-      //     }
-      //   },
       {
         type: "input",
-        message: "What is the manager's name?",
+        message: "What is the team manager's name?",
         name: "managerName",
-        when: (answer) => answer.employeeTypeFirst === "Manager",
       },
       {
         type: "number",
-        message: "What is the manager's employee ID? Please enter digits only",
+        message: "What is the manager's employee ID?",
         name: "managerId",
-        when: (answer) => answer.employeeTypeFirst === "Manager",
+        // validation doesn't work yet; can't escape NaN
+        // validate: function (managerId) {
+        //     if (managerId === number) {
+        //       return managerId;
+        //     } else {
+        //       return console.log(" Please enter a number.");
+        //     }
+        //   },
       },
       {
         type: "input",
         message: "What is the manager's email?",
         name: "managerEmail",
-        when: (answer) => answer.employeeTypeFirst === "Manager",
       },
       {
         type: "number",
-        message:
-          "What is the manager's office number? Please enter digits only",
+        message: "What is the manager's office number?",
         name: "managerOfficeNumber",
-        when: (answer) => answer.employeeTypeFirst === "Manager",
       },
+      // -------------------------------------------------------- END MANAGER
       // menu option to add an engineer or an intern or finish
       {
         type: "list",
         message:
           "Which type of employee would you like to add to the roster next?",
-        choices: ["Manager", "Engineer", "Intern", "None"],
+        choices: ["Engineer", "Intern", "None"],
         name: "employeeTypeNext",
         // validate: function (employeeTypeNext) {
         //   if (employeeTypeNext == "None") {
@@ -75,46 +58,131 @@ function questions() {
         //   }
         // },
       },
-      {
-        type: "confirm",
-        message:
-          "Are you finished listing your team?",
-        name: "employeeTypeNone",
-        when: (answer) => answer.employeeTypeNext === "None",
-      },
-      {
-        employeeTypeNext,
-        name: "employeeTypeNext",
-        when: (answer) => answer.employeeTypeNone === false,
-      },
+      // ------------------------------------ ENGINEER
       // engineer:
       // name
       // employee ID
       // email (interactive)
       // github username (opens in new tab)
-      // take back to the menu options to add another employee
       {
         type: "input",
-        message: "?",
-        name: "",
+        message: "What is the engineer's name?",
+        name: "engineerName",
+        when: (answer) => answer.employeeTypeNext === "Engineer",
       },
+      {
+        type: "number",
+        message: "What is the engineer's employee ID?",
+        name: "engineerId",
+        when: (answer) => answer.employeeTypeNext === "Engineer",
+      },
+      {
+        type: "input",
+        message: "What is the engineer's email?",
+        name: "engineerEmail",
+        when: (answer) => answer.employeeTypeNext === "Engineer",
+      },
+      {
+        type: "input",
+        message: "What is the engineer's Github username?",
+        name: "engineerGithub",
+        // (opens in new tab)
+      },
+      // ------------------------------------ END ENGINEER
+      // take back to the menu options to add another employee
+      {
+        type: "list",
+        message:
+          "Which type of employee would you like to add to the roster next?",
+        choices: ["Engineer", "Intern", "None"],
+        name: "employeeTypeNext",
+      },
+      // ------------------------------------ INTERN
       // intern:
       // name
       // employee ID
       // email (interactive)
       // school
-      // take back to the menu options to add another employee
       {
         type: "input",
-        message: "?",
-        name: "",
+        message: "What is the intern's name?",
+        name: "internName",
+        when: (answer) => answer.employeeTypeNext === "Intern",
+      },
+      {
+        type: "number",
+        message: "What is the intern's employee ID?",
+        name: "internId",
+        when: (answer) => answer.employeeTypeNext === "Intern",
       },
       {
         type: "input",
-        message: "?",
-        name: "",
+        message: "What is the intern's email?",
+        name: "internEmail",
+        when: (answer) => answer.employeeTypeNext === "Intern",
+      },
+      {
+        type: "input",
+        message: "Where does the intern go to school?",
+        name: "internSchool",
+        when: (answer) => answer.employeeTypeNext === "Intern",
+      },
+      // ------------------------------------ END INTERN
+      // take back to the menu options to add another employee
+      {
+        type: "list",
+        message:
+          "Which type of employee would you like to add to the roster next?",
+        choices: ["Engineer", "Intern", "None"],
+        name: "employeeTypeNext",
       },
       // finish creating team
       // exit app and create HTML
-    ]);
+      {
+        type: "confirm",
+        message: "Are you finished listing your team?",
+        name: "employeeTypeNone",
+        when: (answer) => answer.employeeTypeNext === "None",
+      },
+      {
+        type: "list",
+        message:
+          "Which type of employee would you like to add to the roster next?",
+        choices: ["Engineer", "Intern", "None"],
+        name: "employeeTypeNext",
+        when: (answer) => answer.employeeTypeNone === false,
+      },
+    ])
+
+    // the .prompt returns answers and .then catches those answers
+    .then((answers) => {
+      console.log(answers);
+      // then calls the writeToFile() function to write answers into a newly created README.md file
+      writeToFile();
+    })
+
+    // if there are any errors, the function should log the error to the console; otherwise, shout, "success!"
+    .catch((error) => {
+      if (error.isTtyError) {
+        console.log(error);
+      } else {
+        console.log(
+          "Success! (but no index.html file generated - something is probably missing from the generateHTML)",
+          error
+        );
+      }
+    });
 }
+
+function writeToFile(answers) {
+  // "fs" stands for "file-system" and is something built into node.js to allow us to read and write files. in this case, we're writing (creating) a new README.md file and then calling the generateMarkdown() function to populate the file with the format and information we want.
+  fs.writeFile("index.html", generateHTML(answers), (err) => {
+    err ? console.log(err) : console.log("index.html successfully created!");
+  });
+}
+
+function init() {
+  questions();
+}
+
+init();
