@@ -10,7 +10,7 @@ function questions() {
   inquirer
     // questions for the user
     .prompt([
-      // ---------------------------------------------------- MANAGER
+      // ------------------------------------------------------------- MANAGER
       // manager:
       // name
       // employee ID
@@ -44,7 +44,7 @@ function questions() {
         message: "What is the manager's office number?",
         name: "managerOfficeNumber",
       },
-      // -------------------------------------------------------- END MANAGER
+      // ------------------------------------------------------------- END MANAGER
       // menu option to add an engineer or an intern or finish
       {
         type: "list",
@@ -58,7 +58,7 @@ function questions() {
         //   }
         // },
       },
-      // ------------------------------------ ENGINEER
+      // ------------------------------------------------------------- ENGINEER
       // engineer:
       // name
       // employee ID
@@ -88,7 +88,7 @@ function questions() {
         name: "engineerGithub",
         // (opens in new tab)
       },
-      // ------------------------------------ END ENGINEER
+      // ------------------------------------------------------------- END ENGINEER
       // take back to the menu options to add another employee
       {
         type: "list",
@@ -97,7 +97,7 @@ function questions() {
         choices: ["Engineer", "Intern", "None"],
         name: "employeeTypeNext",
       },
-      // ------------------------------------ INTERN
+      // ------------------------------------------------------------- INTERN
       // intern:
       // name
       // employee ID
@@ -127,7 +127,7 @@ function questions() {
         name: "internSchool",
         when: (answer) => answer.employeeTypeNext === "Intern",
       },
-      // ------------------------------------ END INTERN
+      // ------------------------------------------------------------- END INTERN
       // take back to the menu options to add another employee
       {
         type: "list",
