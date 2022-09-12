@@ -1,0 +1,22 @@
+{
+  "name": "roster-ready",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miss-mad/roster-ready.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miss-mad/roster-ready/issues"
+  },
+  "homepage": "https://github.com/miss-mad/roster-ready#readme",
+  "devDependencies": {
+    "jest": "^29.0.3"
+  }
+}
