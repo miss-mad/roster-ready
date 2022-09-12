@@ -56,6 +56,7 @@ List of resources used:
 
 https://www.youtube.com/watch?v=FgnxcUQ5vho&ab_channel=WebDevSimplified
 
+https://www.npmjs.com/package/inquirer#questions
 
 ## License
 
