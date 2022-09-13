@@ -3,7 +3,6 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 
-
 // in this case, information from another js file is imported so that we can use it in this one
 const generateHTML = require("./src/generateHTML");
 
@@ -28,10 +27,10 @@ function questions() {
         name: "managerId",
         // validation doesn't work yet; can't escape NaN
         // validate: function (managerId) {
-        //     if (managerId === number) {
-        //       return managerId;
-        //     } else {
+        //     if (managerId === NaN) {
         //       return console.log(" Please enter a number.");
+        //     } else {
+        //       return managerId;
         //     }
         //   },
       },
@@ -136,7 +135,7 @@ function questions() {
         message:
           "Which type of employee would you like to add to the roster next?",
         choices: ["Engineer", "Intern", "None"],
-        name: "employeeTypeNext",
+        name: "employeeTypeNext3",
       },
       // finish creating team
       // exit app and create HTML
@@ -144,7 +143,7 @@ function questions() {
         type: "confirm",
         message: "Are you finished listing your team?",
         name: "employeeTypeNone",
-        when: (answer) => answer.employeeTypeNext === "None",
+        when: (answer) => answer.employeeTypeNext3 === "None",
       },
       {
         type: "list",
@@ -152,7 +151,7 @@ function questions() {
           "Which type of employee would you like to add to the roster next?",
         choices: ["Engineer", "Intern", "None"],
         name: "employeeTypeNext",
-        // when: (answer) => answer.employeeTypeNone === false,
+        when: (answer) => answer.employeeTypeNone === false,
       },
     ])
 
@@ -181,15 +180,12 @@ function questions() {
 const writeToFile = (answers) => {
   console.log(answers);
 
-
   // "fs" stands for "file-system" and is something built into node.js to allow us to read and write files. in this case, we're writing (creating) a new README.md file and then calling the generateMarkdown() function to populate the file with the format and information we want.
-  fs.writeFile(
-    "./dist/index.html",
-    generateHTML(answers),
-    (err) => {
-      err ? console.log(err) : console.log("index.html successfully created!");
-    }
-  );
+  fs.writeFile("./dist/index.html", generateHTML(answers), (err) => {
+    err
+      ? console.log(err)
+      : console.log("index.html successfully created in dist folder!");
+  });
 };
 
 questions();
