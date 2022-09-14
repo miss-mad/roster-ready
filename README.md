@@ -43,7 +43,7 @@ To operate this app, follow these instructions:
 
 Below is a screenshot of Roster Ready.
 
-![Roster Ready screenshot 1](./assets/images/roster_ready_screenshot1.PNG)
+![Roster Ready screenshot 1](./assets/images/roster_ready_screenshot1.png)
 
 ## Credits
 

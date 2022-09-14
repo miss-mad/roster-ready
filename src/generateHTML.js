@@ -58,10 +58,10 @@ const generateHTML = (answers) => {
     <body>
     <div class="card-header text-center">Workplace Roster</div>
     <div class="card-group">
+
       <div class="card" style="width: 18rem">
         <div class="card-body">
-          <h5 class="card-title"><i class="large material-icons">flare</i>${manager.name}</h5>
-  
+          <h5 class="card-title"><i class="large material-icons">flare</i>${manager.name} - Manager</h5>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${manager.id}</li>
             <li class="list-group-item">
@@ -76,7 +76,7 @@ const generateHTML = (answers) => {
   
       <div class="card" style="width: 18rem">
         <div class="card-body">
-          <h5 class="card-title"><i class="material-icons">audiotrack</i>${engineer.name}</h5>
+          <h5 class="card-title"><i class="material-icons">audiotrack</i>${engineer.name} - Engineer</h5>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${engineer.id}</li>
             <li class="list-group-item">
@@ -94,7 +94,7 @@ const generateHTML = (answers) => {
   
       <div class="card" style="width: 18rem">
         <div class="card-body">
-          <h5 class="card-title"><i class="material-icons">local_florist</i>${intern.name}</h5>
+          <h5 class="card-title"><i class="material-icons">local_florist</i>${intern.name} - Intern</h5>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${intern.id}</li>
             <li class="list-group-item">
