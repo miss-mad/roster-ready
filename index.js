@@ -6,6 +6,13 @@ const fs = require("fs");
 // in this case, information from another js file is imported so that we can use it in this one
 const generateHTML = require("./src/generateHTML");
 
+let allAnswers = {
+  "manager":[],
+  "employee": [],
+  "engineer": [],
+  "intern":[]
+
+};
 // ------------------------------------------------------------- MANAGER
 function managerQuestions() {
   inquirer
@@ -34,6 +41,9 @@ function managerQuestions() {
 
     .then((answers) => {
       console.log(answers);
+      // allAnswers = { ...allAnswers };
+      allAnswers.manager.push(...answers)
+
       employeeTypeQuestion();
     })
 
@@ -69,6 +79,9 @@ function employeeTypeQuestion() {
     ])
     .then((answers) => {
       console.log(answers);
+      // allAnswers = { ...allAnswers, ...answers };
+      allAnswers.employee.push(...answers)
+
       if (answers.employeeTypeNext === "Engineer") {
         engineerQuestions();
       } else if (answers.employeeTypeNext === "Intern") {
@@ -122,6 +135,10 @@ function engineerQuestions() {
     ])
     .then((answers) => {
       console.log(answers);
+      // allAnswers = { ...allAnswers, ...answers };
+
+      allAnswers.engineer.push(...answers)
+
       employeeTypeQuestion();
     })
 
@@ -169,6 +186,10 @@ function internQuestions() {
     ])
     .then((answers) => {
       console.log(answers);
+      // allAnswers = { ...allAnswers, ...answers };
+
+      allAnswers.intern.push(...answers)
+
       employeeTypeQuestion();
     })
 
