@@ -1,14 +1,8 @@
-// this function creates the README by populating all data from the inquirer.prompt questions into a long backticked section
-// used object desctructuring to pull the properties out of the .prompt within the questions() function
-// within this function, if the user doesn not enter an answer to some of the sections, that section heading will not be included in the final README (ternary operator)
-
 const Engineer = require("../lib/engineer");
 const Intern = require("../lib/intern");
 const Manager = require("../lib/manager");
 
-
 const generateHTML = (answers) => {
-
   const manager = new Manager(
     answers.managerName,
     answers.managerId,
@@ -57,7 +51,7 @@ const generateHTML = (answers) => {
     <body>
       <div class="card" style="width: 18rem">
         <div class="card-body">
-          <h5 class="card-title">${manager.name}</h5>
+          <h5 class="card-title">${answers.managerName}</h5>
   
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${manager.id}</li>

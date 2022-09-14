@@ -6,16 +6,10 @@ const fs = require("fs");
 // in this case, information from another js file is imported so that we can use it in this one
 const generateHTML = require("./src/generateHTML");
 
-function questions() {
+// ------------------------------------------------------------- MANAGER
+function managerQuestions() {
   inquirer
-    // questions for the user
     .prompt([
-      // ------------------------------------------------------------- MANAGER
-      // manager:
-      // name
-      // employee ID
-      // email (interactive)
-      // office #
       {
         type: "input",
         message: "What is the team manager's name?",
@@ -25,14 +19,6 @@ function questions() {
         type: "number",
         message: "What is the manager's employee ID?",
         name: "managerId",
-        // validation doesn't work yet; can't escape NaN
-        // validate: function (managerId) {
-        //     if (managerId === NaN) {
-        //       return console.log(" Please enter a number.");
-        //     } else {
-        //       return managerId;
-        //     }
-        //   },
       },
       {
         type: "input",
@@ -44,7 +30,29 @@ function questions() {
         message: "What is the manager's office number?",
         name: "managerOfficeNumber",
       },
-      // ------------------------------------------------------------- END MANAGER
+    ])
+
+    .then((answers) => {
+      console.log(answers);
+      employeeTypeQuestion();
+    })
+
+    .catch((error) => {
+      if (error.isTtyError) {
+        console.log(error);
+      } else {
+        console.log(
+          "Success! (but no index.html file generated - something is probably missing from the generateHTML)",
+          error
+        );
+      }
+    });
+}
+// ------------------------------------------------------------- END MANAGER
+
+function employeeTypeQuestion() {
+  inquirer
+    .prompt([
       // menu option to add an engineer or an intern or finish
       {
         type: "list",
@@ -58,12 +66,34 @@ function questions() {
         //   }
         // },
       },
-      // ------------------------------------------------------------- ENGINEER
-      // engineer:
-      // name
-      // employee ID
-      // email (interactive)
-      // github username (opens in new tab)
+    ])
+    .then((answers) => {
+      console.log(answers);
+      if (answers.employeeTypeNext === "Engineer") {
+        engineerQuestions();
+      } else if (answers.employeeTypeNext === "Intern") {
+        internQuestions();
+      } else {
+        noneQuestion();
+      }
+    })
+
+    .catch((error) => {
+      if (error.isTtyError) {
+        console.log(error);
+      } else {
+        console.log(
+          "Success! (but no index.html file generated - something is probably missing from the generateHTML)",
+          error
+        );
+      }
+    });
+}
+
+// ------------------------------------------------------------- ENGINEER
+function engineerQuestions() {
+  inquirer
+    .prompt([
       {
         type: "input",
         message: "What is the engineer's name?",
@@ -89,21 +119,29 @@ function questions() {
         // when: (answer) => answer.employeeTypeNext === "Engineer",
         // (opens in new tab)
       },
-      // ------------------------------------------------------------- END ENGINEER
-      // take back to the menu options to add another employee
-      {
-        type: "list",
-        message:
-          "Which type of employee would you like to add to the roster next?",
-        choices: ["Engineer", "Intern", "None"],
-        name: "employeeTypeNext2",
-      },
-      // ------------------------------------------------------------- INTERN
-      // intern:
-      // name
-      // employee ID
-      // email (interactive)
-      // school
+    ])
+    .then((answers) => {
+      console.log(answers);
+      employeeTypeQuestion();
+    })
+
+    .catch((error) => {
+      if (error.isTtyError) {
+        console.log(error);
+      } else {
+        console.log(
+          "Success! (but no index.html file generated - something is probably missing from the generateHTML)",
+          error
+        );
+      }
+    });
+}
+// ------------------------------------------------------------- END ENGINEER
+
+// ------------------------------------------------------------- INTERN
+function internQuestions() {
+  inquirer
+    .prompt([
       {
         type: "input",
         message: "What is the intern's name?",
@@ -128,43 +166,47 @@ function questions() {
         name: "internSchool",
         // when: (answer) => answer.employeeTypeNext === "Intern",
       },
-      // ------------------------------------------------------------- END INTERN
-      // take back to the menu options to add another employee
-      {
-        type: "list",
-        message:
-          "Which type of employee would you like to add to the roster next?",
-        choices: ["Engineer", "Intern", "None"],
-        name: "employeeTypeNext3",
-      },
-      // finish creating team
-      // exit app and create HTML
+    ])
+    .then((answers) => {
+      console.log(answers);
+      employeeTypeQuestion();
+    })
+
+    .catch((error) => {
+      if (error.isTtyError) {
+        console.log(error);
+      } else {
+        console.log(
+          "Success! (but no index.html file generated - something is probably missing from the generateHTML)",
+          error
+        );
+      }
+    });
+}
+// ------------------------------------------------------------- END INTERN
+
+// finish creating team
+// exit app and create HTML
+function noneQuestion() {
+  inquirer
+    .prompt([
       {
         type: "confirm",
         message: "Are you finished listing your team?",
         name: "employeeTypeNone",
-        when: (answer) => answer.employeeTypeNext3 === "None",
-      },
-      {
-        type: "list",
-        message:
-          "Which type of employee would you like to add to the roster next?",
-        choices: ["Engineer", "Intern", "None"],
-        name: "employeeTypeNext",
-        when: (answer) => answer.employeeTypeNone === false,
+        // when: (answer) => answer.employeeTypeNext3 === "None",
       },
     ])
-
-    // the .prompt returns answers and .then catches those answers
     .then((answers) => {
       console.log(answers);
-
-      // then calls the writeToFile() function to write answers into a newly created README.md file
-
-      writeToFile(answers);
+      if (answers.employeeTypeNone === false) {
+        employeeTypeQuestion();
+      } else {
+        writeToFile(answers);
+        return;
+      }
     })
 
-    // if there are any errors, the function should log the error to the console; otherwise, shout, "success!"
     .catch((error) => {
       if (error.isTtyError) {
         console.log(error);
@@ -180,7 +222,6 @@ function questions() {
 const writeToFile = (answers) => {
   console.log(answers);
 
-  // "fs" stands for "file-system" and is something built into node.js to allow us to read and write files. in this case, we're writing (creating) a new README.md file and then calling the generateMarkdown() function to populate the file with the format and information we want.
   fs.writeFile("./dist/index.html", generateHTML(answers), (err) => {
     err
       ? console.log(err)
@@ -188,4 +229,4 @@ const writeToFile = (answers) => {
   });
 };
 
-questions();
+managerQuestions();
