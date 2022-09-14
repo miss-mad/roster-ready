@@ -1,4 +1,4 @@
-// "require" is a way to target a file or package needed to create this readme generator app
+// "require" is a way to target a file or package needed to create this HTML workplace roster app
 // in the first two cases, "require" allows us to use certain packages within this js file
 const inquirer = require("inquirer");
 const fs = require("fs");
@@ -6,12 +6,17 @@ const fs = require("fs");
 // in this case, information from another js file is imported so that we can use it in this one
 const generateHTML = require("./src/generateHTML");
 
+// creates a object of empty array values so that we can later use the push array method to add the answers object to the end of the array
 let allAnswers = {
   manager: [],
   employee: [],
   engineer: [],
   intern: [],
 };
+
+// several functions that contain the questions for the user using inquirer. each function is for a specific employee type (manager, engineer, or intern), or is specifically for determining if the user is finished building the team
+// each function calls the appropriate next function needed and also has an error catching system
+
 // ------------------------------------------------------------- MANAGER
 function managerQuestions() {
   inquirer
@@ -38,8 +43,6 @@ function managerQuestions() {
       },
     ])
     .then((answers) => {
-      // console.log(answers);
-      // allAnswers = { ...allAnswers };
       allAnswers.manager.push({ ...answers });
 
       employeeTypeQuestion();
@@ -58,10 +61,10 @@ function managerQuestions() {
 }
 // ------------------------------------------------------------- END MANAGER
 
+// menu option to add an engineer or an intern or finish
 function employeeTypeQuestion() {
   inquirer
     .prompt([
-      // menu option to add an engineer or an intern or finish
       {
         type: "list",
         message:
@@ -71,11 +74,9 @@ function employeeTypeQuestion() {
       },
     ])
     .then((answers) => {
-      // console.log(answers);
-      // allAnswers = { ...allAnswers, ...answers };
       allAnswers.employee.push({ ...answers });
-      // console.log(allAnswers);
 
+      // determines which set of questions to fire next depending on the user's choice
       if (answers.employeeTypeNext === "Engineer") {
         engineerQuestions();
       } else if (answers.employeeTypeNext === "Intern") {
@@ -105,34 +106,25 @@ function engineerQuestions() {
         type: "input",
         message: "What is the engineer's name?",
         name: "engineerName",
-        // when: (answer) => answer.employeeTypeNext === "Engineer",
       },
       {
         type: "number",
         message: "What is the engineer's employee ID?",
         name: "engineerId",
-        // when: (answer) => answer.employeeTypeNext === "Engineer",
       },
       {
         type: "input",
         message: "What is the engineer's email?",
         name: "engineerEmail",
-        // when: (answer) => answer.employeeTypeNext === "Engineer",
       },
       {
         type: "input",
         message: "What is the engineer's Github username?",
         name: "engineerGithub",
-        // when: (answer) => answer.employeeTypeNext === "Engineer",
-        // (opens in new tab)
       },
     ])
     .then((answers) => {
-      // console.log(answers);
-      // allAnswers = { ...allAnswers, ...answers };
-
       allAnswers.engineer.push({ ...answers });
-      // console.log(allAnswers);
 
       employeeTypeQuestion();
     })
@@ -158,33 +150,25 @@ function internQuestions() {
         type: "input",
         message: "What is the intern's name?",
         name: "internName",
-        // when: (answer) => answer.employeeTypeNext === "Intern",
       },
       {
         type: "number",
         message: "What is the intern's employee ID?",
         name: "internId",
-        // when: (answer) => answer.employeeTypeNext === "Intern",
       },
       {
         type: "input",
         message: "What is the intern's email?",
         name: "internEmail",
-        // when: (answer) => answer.employeeTypeNext === "Intern",
       },
       {
         type: "input",
         message: "Where does the intern go to school?",
         name: "internSchool",
-        // when: (answer) => answer.employeeTypeNext === "Intern",
       },
     ])
     .then((answers) => {
-      // console.log(answers);
-      // allAnswers = { ...allAnswers, ...answers };
-
       allAnswers.intern.push({ ...answers });
-      // console.log(allAnswers);
 
       employeeTypeQuestion();
     })
@@ -232,10 +216,8 @@ function noneQuestion() {
       }
     });
 }
-// create index.html file
+// create index.html file with file system (fs)
 const writeToFile = (answers) => {
-  // console.log(answers);
-
   fs.writeFile("./dist/index.html", generateHTML(answers), (err) => {
     err
       ? console.log(err)
@@ -243,4 +225,5 @@ const writeToFile = (answers) => {
   });
 };
 
+// fires the first set of questions to start app
 managerQuestions();

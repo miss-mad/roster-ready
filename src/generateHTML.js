@@ -1,9 +1,10 @@
+// importing information from other files using require
 const Engineer = require("../lib/engineer");
 const Intern = require("../lib/intern");
 const Manager = require("../lib/manager");
 
+// function expression to generate the HTML - the markup is between two backticks
 const generateHTML = (answers) => {
-  // console.log("ANSWERS: ", answers);
 
   const manager = new Manager(
     answers.manager[0].managerName,
@@ -26,6 +27,7 @@ const generateHTML = (answers) => {
     answers.intern[0].internSchool
   );
 
+  // HTML here vis string interpolation
   return `<!DOCTYPE html>
   <html lang="en">
     <head>
@@ -102,4 +104,5 @@ const generateHTML = (answers) => {
   `;
 };
 
+// export this file to be accessed elsewhere
 module.exports = generateHTML;
