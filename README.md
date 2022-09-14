@@ -1,5 +1,5 @@
 # Roster Ready
-A webpage-generating command-line application that creates a list of people's names and details. In this case, it's a workplace roster. This app is powered by node.js and inquirer, and uses jest as a testing environment.
+A simple way to list and build your next team
 
 ## Table of Contents
 
@@ -12,7 +12,7 @@ A webpage-generating command-line application that creates a list of people's na
 - [License](#license)
 
 ## Description
-
+This is a webpage-generating command-line application that creates a list of people's names and details. In this case, it's a workplace roster. This app is powered by node.js and inquirer, using jest as a testing environment.
 
 
 ## Deployed Application
@@ -25,8 +25,7 @@ Video link:
 
 ## Future Improvements
 
- * Inquirer .prompt questions cleaner and DRYer
- * Ability to add more than one of each employee type (ask each time if we want to add another manager, engineer, intern, or none)
+ * Ability to add more than one of each employee type (loop through each of the managers, engineers, or interns to dynamically create cards for each)
 
 ## Installation
 
@@ -36,21 +35,17 @@ To operate this app, follow these instructions:
 2] Clone it down to your computer with either the SSH key (if you have that set up, or the HTTPS link)
 3] Open your computer's version of the terminal (GitBash, iTerm, etc.)
 4] Within the terminal, navigate (cd) into the new local repo you have just created
-5] Enter "npm install" or "npm i" in the terminal to install the necessary node modules for this project
+5] Enter "npm install" or "npm i" in the terminal to install the necessary node modules for this project (be sure to include inquirer in the installation)
 6] Enter "node index.js" to run the app.
-7] The app should ask you a series of questions about your workplace team members, then create an HTML for you to display to everyone!
+7] The app should ask you a series of questions about your workplace team members, then create an HTML!
 
 ## Usage
 
 Below is a screenshot of Roster Ready.
 
-![Roster Ready screenshot 1](./)
+![Roster Ready screenshot 1](../roster-ready/assets/images/roster_ready_screenshot1.png)
 
 ## Credits
-
-Collaborators:
-
-
 
 List of resources used:
 
@@ -59,6 +54,10 @@ https://www.youtube.com/watch?v=FgnxcUQ5vho&ab_channel=WebDevSimplified
 https://www.npmjs.com/package/inquirer#questions
 
 https://getbootstrap.com/docs/5.0/components/card/
+
+https://materializecss.com/icons.html
+
+https://unsplash.com/photos/9wg5jCEPBsw
 
 ## License
 

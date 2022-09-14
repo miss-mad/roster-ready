@@ -4,3 +4,26 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+/* a few styles to spruce up the page*/
+body {
+  background-image: url(../assets/images/rohit-tandon-9wg5jCEPBsw-unsplash.jpg);
+  margin-bottom: 25px;
+  background-size: cover;
+  background-position: center;
+  height: 900px;
+  width: 100%;
+}
+
+.card-header {
+  font-size: 50px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.card {
+  opacity: 0.75;
+}
+
+.card-title {
+  color: rgb(89, 155, 230);
+}

@@ -5,7 +5,6 @@ const Manager = require("../lib/manager");
 
 // function expression to generate the HTML - the markup is between two backticks
 const generateHTML = (answers) => {
-
   const manager = new Manager(
     answers.manager[0].managerName,
     answers.manager[0].managerId,
@@ -27,7 +26,7 @@ const generateHTML = (answers) => {
     answers.intern[0].internSchool
   );
 
-  // HTML here vis string interpolation
+  // HTML here via string interpolation
   return `<!DOCTYPE html>
   <html lang="en">
     <head>
@@ -46,6 +45,10 @@ const generateHTML = (answers) => {
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       />
       <link
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet"
+      />
+      <link
         rel="stylesheet"
         href="./styles.css"
         type="text/css"
@@ -53,9 +56,11 @@ const generateHTML = (answers) => {
       <title>Roster Ready</title>
     </head>
     <body>
+    <div class="card-header text-center">Workplace Roster</div>
+    <div class="card-group">
       <div class="card" style="width: 18rem">
         <div class="card-body">
-          <h5 class="card-title">${manager.name}</h5>
+          <h5 class="card-title"><i class="large material-icons">flare</i>${manager.name}</h5>
   
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${manager.id}</li>
@@ -71,7 +76,7 @@ const generateHTML = (answers) => {
   
       <div class="card" style="width: 18rem">
         <div class="card-body">
-          <h5 class="card-title">${engineer.name}</h5>
+          <h5 class="card-title"><i class="material-icons">audiotrack</i>${engineer.name}</h5>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${engineer.id}</li>
             <li class="list-group-item">
@@ -89,7 +94,7 @@ const generateHTML = (answers) => {
   
       <div class="card" style="width: 18rem">
         <div class="card-body">
-          <h5 class="card-title">${intern.name}</h5>
+          <h5 class="card-title"><i class="material-icons">local_florist</i>${intern.name}</h5>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${intern.id}</li>
             <li class="list-group-item">
@@ -98,6 +103,7 @@ const generateHTML = (answers) => {
             <li class="list-group-item">School: ${intern.school}</li>
           </ul>
         </div>
+      </div>
       </div>
     </body>
   </html>
