@@ -1,5 +1,5 @@
 # Roster Ready
-A simple way to list and build your next team
+A simple way to list and build your next team!
 
 ## Table of Contents
 
@@ -43,7 +43,7 @@ To operate this app, follow these instructions:
 
 Below is a screenshot of Roster Ready.
 
-![Roster Ready screenshot 1](../roster-ready/assets/images/roster_ready_screenshot1.png)
+![Roster Ready screenshot 1](./assets/images/roster_ready_screenshot1.PNG)
 
 ## Credits
 
