@@ -3,25 +3,27 @@ const Intern = require("../lib/intern");
 const Manager = require("../lib/manager");
 
 const generateHTML = (answers) => {
+  // console.log("ANSWERS: ", answers);
+
   const manager = new Manager(
-    answers.managerName,
-    answers.managerId,
-    answers.managerEmail,
-    answers.managerOfficeNumber
+    answers.manager[0].managerName,
+    answers.manager[0].managerId,
+    answers.manager[0].managerEmail,
+    answers.manager[0].managerOfficeNumber
   );
 
   const engineer = new Engineer(
-    answers.engineerName,
-    answers.engineerId,
-    answers.engineerEmail,
-    answers.engineerGithub
+    answers.engineer[0].engineerName,
+    answers.engineer[0].engineerId,
+    answers.engineer[0].engineerEmail,
+    answers.engineer[0].engineerGithub
   );
 
   const intern = new Intern(
-    answers.internName,
-    answers.internId,
-    answers.internEmail,
-    answers.internSchool
+    answers.intern[0].internName,
+    answers.intern[0].internId,
+    answers.intern[0].internEmail,
+    answers.intern[0].internSchool
   );
 
   return `<!DOCTYPE html>
@@ -51,7 +53,7 @@ const generateHTML = (answers) => {
     <body>
       <div class="card" style="width: 18rem">
         <div class="card-body">
-          <h5 class="card-title">${answers.managerName}</h5>
+          <h5 class="card-title">${manager.name}</h5>
   
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${manager.id}</li>

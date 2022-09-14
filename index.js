@@ -7,11 +7,10 @@ const fs = require("fs");
 const generateHTML = require("./src/generateHTML");
 
 let allAnswers = {
-  "manager":[],
-  "employee": [],
-  "engineer": [],
-  "intern":[]
-
+  manager: [],
+  employee: [],
+  engineer: [],
+  intern: [],
 };
 // ------------------------------------------------------------- MANAGER
 function managerQuestions() {
@@ -38,11 +37,10 @@ function managerQuestions() {
         name: "managerOfficeNumber",
       },
     ])
-
     .then((answers) => {
-      console.log(answers);
+      // console.log(answers);
       // allAnswers = { ...allAnswers };
-      allAnswers.manager.push(...answers)
+      allAnswers.manager.push({ ...answers });
 
       employeeTypeQuestion();
     })
@@ -70,17 +68,13 @@ function employeeTypeQuestion() {
           "Which type of employee would you like to add to the roster next?",
         choices: ["Engineer", "Intern", "None"],
         name: "employeeTypeNext",
-        // validate: function (employeeTypeNext) {
-        //   if (employeeTypeNext == "None") {
-        //     return "Please choose an employee type to add the next employee.";
-        //   }
-        // },
       },
     ])
     .then((answers) => {
-      console.log(answers);
+      // console.log(answers);
       // allAnswers = { ...allAnswers, ...answers };
-      allAnswers.employee.push(...answers)
+      allAnswers.employee.push({ ...answers });
+      // console.log(allAnswers);
 
       if (answers.employeeTypeNext === "Engineer") {
         engineerQuestions();
@@ -134,10 +128,11 @@ function engineerQuestions() {
       },
     ])
     .then((answers) => {
-      console.log(answers);
+      // console.log(answers);
       // allAnswers = { ...allAnswers, ...answers };
 
-      allAnswers.engineer.push(...answers)
+      allAnswers.engineer.push({ ...answers });
+      // console.log(allAnswers);
 
       employeeTypeQuestion();
     })
@@ -185,10 +180,11 @@ function internQuestions() {
       },
     ])
     .then((answers) => {
-      console.log(answers);
+      // console.log(answers);
       // allAnswers = { ...allAnswers, ...answers };
 
-      allAnswers.intern.push(...answers)
+      allAnswers.intern.push({ ...answers });
+      // console.log(allAnswers);
 
       employeeTypeQuestion();
     })
@@ -206,8 +202,7 @@ function internQuestions() {
 }
 // ------------------------------------------------------------- END INTERN
 
-// finish creating team
-// exit app and create HTML
+// finish creating team and exit app
 function noneQuestion() {
   inquirer
     .prompt([
@@ -215,15 +210,13 @@ function noneQuestion() {
         type: "confirm",
         message: "Are you finished listing your team?",
         name: "employeeTypeNone",
-        // when: (answer) => answer.employeeTypeNext3 === "None",
       },
     ])
     .then((answers) => {
-      console.log(answers);
       if (answers.employeeTypeNone === false) {
         employeeTypeQuestion();
       } else {
-        writeToFile(answers);
+        writeToFile(allAnswers);
         return;
       }
     })
@@ -239,9 +232,9 @@ function noneQuestion() {
       }
     });
 }
-
+// create index.html file
 const writeToFile = (answers) => {
-  console.log(answers);
+  // console.log(answers);
 
   fs.writeFile("./dist/index.html", generateHTML(answers), (err) => {
     err
